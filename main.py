@@ -1,8 +1,11 @@
-from app import create_app
+from flask import Blueprint, render_template
+from flask_login import current_user, login_required
 
 
-app = create_app()
+main_bp = Blueprint("main", __name__)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@main_bp.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html", user=current_user)
